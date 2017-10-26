@@ -1,3 +1,4 @@
+import { FilterReducer } from './filter.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListReducer } from './list.reducer';
 import { ListState } from './list-state';
@@ -11,7 +12,8 @@ import { StoreModule, ActionReducerMap } from '@ngrx/store';
 import { APP_BASE_HREF } from '@angular/common';
 
 const reducers: ActionReducerMap<ListState> = {
-  list: ListReducer
+  list: ListReducer,
+  filter: FilterReducer
 }
 
 describe('ListComponent', () => {

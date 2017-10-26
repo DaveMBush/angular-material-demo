@@ -1,4 +1,5 @@
 import { Contact } from '../../shared/contact';
 export interface ListState {
-    list: ReadonlyArray<Contact>
+    list: ReadonlyArray<Contact>;
+    filter: string;
 }

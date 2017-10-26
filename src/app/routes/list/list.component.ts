@@ -3,9 +3,10 @@ import { Router } from '@angular/router';
 import { AppState } from '../../app-state';
 import { Contact } from '../../shared/contact';
 import { Observable } from 'rxjs/Rx';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as List from './list.actions';
+import * as Filter from './filter.actions';
 import { DataSource } from '@angular/cdk/collections';
 import { MatDialog } from '@angular/material';
 
@@ -21,17 +22,29 @@ export class ListComponent implements OnInit {
     connect: (): Observable<Array<Contact>> => <Observable<Array<Contact>>>this.contacts
   };
   displayedColumns: ReadonlyArray<string> = ['firstName', 'lastName', 'dateOfBirth', 'delete'];
+  @ViewChild('filter') filter: ElementRef;
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private dlg: MatDialog
   ) {
     this.contacts = store.select(
-      (x: AppState) => x.list.list);
+      (x: AppState) => x.list.list
+    );
   }
 
   ngOnInit(): void {
+    // lazy way of resetting input, but this is primarily a demo of Material Design
+    this.store.select((x: AppState) => x.list.filter)
+      .first()
+      .subscribe((v: string) => this.filter.nativeElement.value = v);
     this.store.dispatch(new List.List());
+    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+      .debounceTime(150)
+      .subscribe((): void => {
+        this.store.dispatch(new Filter.Set(this.filter.nativeElement.value))
+        this.store.dispatch(new List.List());
+      });
   }
 
   delete(evt: Event, id: number): void {

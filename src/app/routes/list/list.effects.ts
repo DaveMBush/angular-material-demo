@@ -1,3 +1,5 @@
+import { AppState } from '../../app-state';
+import { Store } from '@ngrx/store';
 import { Contact } from '../../shared/contact';
 import { ContactsService } from '../../shared/contacts.service';
 import { Observable } from 'rxjs/Rx';
@@ -11,9 +13,10 @@ export class ListEffects {
     list$: Observable<List.ListResult> =
     this.actions$
         .ofType(List.LIST)
-        .switchMap(():
+        .switchMap(() => this.store.select((x: AppState) => x.list.filter))
+        .switchMap((filter: string):
             Observable<{} | ReadonlyArray<Contact>> =>
-            this.contactsService.list())
+            this.contactsService.list(filter))
         .map((x: ReadonlyArray<Contact>):
             List.ListResult =>
             new List.ListResult(x)
@@ -31,5 +34,7 @@ export class ListEffects {
         .map((): List.List => new List.List());
 
     constructor(private actions$: Actions,
-        private contactsService: ContactsService) { }
+        private contactsService: ContactsService,
+        private store: Store<AppState>
+    ) { }
 }

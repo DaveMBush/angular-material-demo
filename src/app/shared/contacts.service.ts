@@ -22,7 +22,7 @@ let contacts: ReadonlyArray<Contact> = [
 export class ContactsService {
 
     constructor(/*private httpClient: HttpClient*/) { }
-    list(): Observable<{} | ReadonlyArray<Contact>> {
+    list(filter: string): Observable<{} | ReadonlyArray<Contact>> {
         // return this
         //     .httpClient
         //     .get<ReadonlyArray<Contact>>
@@ -30,7 +30,9 @@ export class ContactsService {
         //   .retry(2)
         //   .catch((e: Error) =>
         //         /* handle errors here */);
-        return Observable.from([contacts]);
+        return Observable.from([contacts.filter((c: Contact) =>
+            (c.firstName + ' ' + c.lastName).toLocaleLowerCase().indexOf(filter.toLocaleLowerCase()) > -1
+        )]);
     }
 
     delete(id: number): Observable<{}> {

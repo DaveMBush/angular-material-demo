@@ -1,3 +1,4 @@
+import { FilterReducer } from './filter.reducer';
 import { ListEffects } from './list.effects';
 import { ListReducer } from './list.reducer';
 import { ListState } from './list-state';
@@ -11,7 +12,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 const reducers: ActionReducerMap<ListState> = {
-  list: ListReducer
+  list: ListReducer,
+  filter: FilterReducer
 }
 
 @NgModule({
