@@ -22,7 +22,7 @@
   <ng-container matColumnDef="delete">
     <mat-header-cell fxFlex="35px" *matHeaderCellDef>&nbsp;</mat-header-cell>
     <mat-cell fxFlex="35px" fxLayoutAlign="end center" *matCellDef="let contact">
-      <button (click)="delete(contact.id)" mat-icon-button>
+      <button (click)="delete($event, contact.id)" mat-icon-button>
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>

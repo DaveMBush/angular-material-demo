@@ -12,7 +12,8 @@ import {
   MatDatepickerModule,
   MatFormFieldModule,
   MatNativeDateModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialogModule
 } from '@angular/material';
 
 // tslint:disable-next-line:no-any
@@ -28,7 +29,8 @@ const materialDesignComponents: ReadonlyArray<Type<any>> = [
   MatDatepickerModule,
   MatFormFieldModule,
   MatNativeDateModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDialogModule
 ];
 
 @NgModule({

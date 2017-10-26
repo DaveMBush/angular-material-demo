@@ -1,3 +1,4 @@
+import { AlertComponent } from '../../shared/alert/alert.component';
 import { Router } from '@angular/router';
 import { AppState } from '../../app-state';
 import { Contact } from '../../shared/contact';
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as List from './list.actions';
 import { DataSource } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-list',
@@ -19,8 +21,10 @@ export class ListComponent implements OnInit {
     connect: (): Observable<Array<Contact>> => <Observable<Array<Contact>>>this.contacts
   };
   displayedColumns: ReadonlyArray<string> = ['firstName', 'lastName', 'dateOfBirth', 'delete'];
-  constructor(private store: Store<AppState>,
-    private router: Router
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    private dlg: MatDialog
   ) {
     this.contacts = store.select(
       (x: AppState) => x.list.list);
@@ -30,8 +34,15 @@ export class ListComponent implements OnInit {
     this.store.dispatch(new List.List());
   }
 
-  delete(id: number): void {
-    this.store.dispatch(new List.Delete(id));
+  delete(evt: Event, id: number): void {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.dlg.open<AlertComponent>(AlertComponent, { height: '200px', width: '300px', data: 'Are you sure you want to delete?' })
+      .afterClosed()
+      .filter((x: string) => x === 'yes')
+      .subscribe((): void =>
+        this.store.dispatch(new List.Delete(id))
+      );
   }
 
   edit(id: number): void {
