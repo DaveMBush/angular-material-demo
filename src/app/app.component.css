@@ -1,0 +1,8 @@
+:host {
+    max-width: 414px;
+    display: block;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #673ab7;
+}

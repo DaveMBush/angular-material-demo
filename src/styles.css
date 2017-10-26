@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Material Icons */
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+
+/* One of the built in material themes */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+body {
+    margin: 0;
+    font-family: Robot, sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}

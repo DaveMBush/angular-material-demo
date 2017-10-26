@@ -1,0 +1,23 @@
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <input type="hidden" formControName="id">
+      <mat-form-field>
+        <input matInput placeholder="First Name" formControlName="firstName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Last Name" formControlName="lastName">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Birth Date" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>
+<div fxLayout="row">
+  <div fxFlex>&nbsp;</div>
+  <button (click)="save()" mat-raised-button fxFlex="90px" class="save">
+    <mat-icon>save</mat-icon>&nbsp;Save</button>
+</div>

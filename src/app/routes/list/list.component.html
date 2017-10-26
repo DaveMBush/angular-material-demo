@@ -1,0 +1,32 @@
+<mat-toolbar>
+  <mat-form-field fxFlex floatPlaceholder="never">
+    <input matInput placeholder="Filter users">
+  </mat-form-field>
+  <div fxFlex="10px">&nbsp;</div>
+  <button (click)="add()" mat-raised-button fxFlex="90px">
+    <mat-icon>add</mat-icon>&nbsp;Add</button>
+</mat-toolbar>
+<mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="firstName">
+    <mat-header-cell fxFlex *matHeaderCellDef>First</mat-header-cell>
+    <mat-cell fxFlex *matCellDef="let contact">{{contact.firstName}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="lastName">
+    <mat-header-cell fxFlex *matHeaderCellDef>Last</mat-header-cell>
+    <mat-cell fxFlex *matCellDef="let contact">{{contact.lastName}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="dateOfBirth">
+    <mat-header-cell fxFlex="65px" *matHeaderCellDef>DOB</mat-header-cell>
+    <mat-cell fxFlex="65px" *matCellDef="let contact">{{contact.dateOfBirth | date:'shortDate'}}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+    <mat-header-cell fxFlex="35px" *matHeaderCellDef>&nbsp;</mat-header-cell>
+    <mat-cell fxFlex="35px" fxLayoutAlign="end center" *matCellDef="let contact">
+      <button (click)="delete(contact.id)" mat-icon-button>
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row fxLayout="row" *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row (click)="edit(contact.id)" fxLayout="row" *matRowDef="let contact; columns: displayedColumns;"></mat-row>
+</mat-table>
