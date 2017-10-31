@@ -7,7 +7,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import * as List from './list.actions';
 
-Injectable()
+@Injectable()
 export class ListEffects {
     @Effect()
     list$: Observable<List.ListResult> =
