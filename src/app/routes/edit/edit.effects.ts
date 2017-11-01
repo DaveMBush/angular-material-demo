@@ -8,7 +8,7 @@ import { Effect, Actions } from '@ngrx/effects';
 import * as Edit from './edit.actions';
 import { Store } from '@ngrx/store';
 
-Injectable()
+@Injectable()
 export class EditEffects {
     @Effect()
     get$: Observable<Edit.Update> =
